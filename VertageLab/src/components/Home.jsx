@@ -1,12 +1,19 @@
 import { NavLink } from "react-router-dom";
+import { useAppContext } from "../context/AppContext";
+import Gradient from "./Gradient";
 
 const Home = () => {
+  const state = useAppContext();
   return (
-    <div className="new">
+    <div className="home">
+      {state.gradients.length > 0 ? (
+        state.gradients.map((el) => <Gradient key={el.id} gradient={el} />)
+      ) : (
+        <p>Empty State</p>
+      )}
       <NavLink to="/new" className="item">
         New
       </NavLink>
-      <p>Hello Home Page </p>
     </div>
   );
 };

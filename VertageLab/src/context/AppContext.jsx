@@ -1,4 +1,5 @@
 import { createContext, useContext, useReducer } from "react";
+import { generate } from "shortid";
 
 export const AppStateContext = createContext();
 export const AppDispatchContext = createContext();
@@ -11,17 +12,17 @@ function reducer(state, action) {
   switch (action.type) {
     case "addGradient":
       return {
-        gradients: [...state.gradients, action.gradient],
+        gradients: [...state.gradients, { ...action.gradient, id: generate() }],
       };
     case "updateGradient":
       return {
         gradients: state.gradients.map((g) =>
-          g._id === action.gradient._id ? action.gradient : g
+          g.id === action.gradient.id ? action.gradient : g
         ),
       };
     case "deleteGradient":
       return {
-        gradients: state.gradients.filter((g) => g._id !== action.gradient._id),
+        gradients: state.gradients.filter((g) => g.id !== action.gradient.id),
       };
 
     default:
@@ -73,7 +74,7 @@ export const useSaveGradient = () => {
   const addGradient = useAddGradient();
   const updateGradient = useUpdateGradient();
   return function (gradient) {
-    return gradient._id ? updateGradient(gradient) : addGradient(gradient);
+    return gradient.id ? updateGradient(gradient) : addGradient(gradient);
   };
 };
 

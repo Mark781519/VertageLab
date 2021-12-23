@@ -1,17 +1,18 @@
-import { Route, Routes } from "react-router-dom";
-import Edit from "./components/Edit";
+import { Route, Routes, BrowserRouter as Router } from "react-router-dom";
 import Home from "./components/Home";
-import New from "./components/New";
+import GradientForm from "./components/GradientForm";
 import "./App.css";
 
 const App = () => {
   return (
     <div className="app">
-      <Routes>
-        <Route exact path="/" element={<Home />} />
-        <Route path="/new" element={<New />} />
-        <Route path="/edit/:id" element={<Edit />} />
-      </Routes>
+      <Router>
+        <Routes>
+          <Route exact path="/" element={<Home />} />
+          <Route path="/new" element={<GradientForm />} />
+          <Route path="/edit/:id" element={<GradientForm />} />
+        </Routes>
+      </Router>
     </div>
   );
 };
