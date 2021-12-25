@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useAppContext, useSaveGradient } from "../context/AppContext";
 import _find from "lodash/find";
+import "../style/Form.css";
 
 const setFormObj =
   (data, fn) =>
@@ -9,6 +10,15 @@ const setFormObj =
     const value = target.value;
     return fn({ ...data, [target.name]: value });
   };
+
+const validate = (first, second) => {
+  const isHex = /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/;
+  if (isHex.test(first) && isHex.test(second)) {
+    return true;
+  } else {
+    return false;
+  }
+};
 const initialData = { id: null, first: "", second: "" };
 
 const GradientForm = () => {
@@ -18,6 +28,7 @@ const GradientForm = () => {
 
   const state = useAppContext();
   const saveGradient = useSaveGradient();
+  const isActive = validate(data.first, data.second);
 
   useEffect(() => {
     const gradient = _find(state.gradients, { id }) || {};
@@ -36,21 +47,30 @@ const GradientForm = () => {
   };
 
   return (
-    <div className="new">
-      <p>Hello new Page</p>
-      <form className="new_form" onSubmit={handleSubmit}>
+    <div className="form_box">
+      <form className="gradient_form" onSubmit={handleSubmit}>
         <input
+          type="text"
+          data-testid="first"
           value={data.first}
           name="first"
+          id="firstInput"
           onChange={setFormObj(data, setData)}
         ></input>
         <input
+          type="text"
+          data-testid="second"
           value={data.second}
           name="second"
+          id="secondInput"
           onChange={setFormObj(data, setData)}
         ></input>
-        <button type="submit" className="form_button">
-          Save
+        <button
+          type="submit"
+          disabled={!isActive}
+          className={isActive ? "form_button-active" : ""}
+        >
+          Add gradient
         </button>
       </form>
     </div>

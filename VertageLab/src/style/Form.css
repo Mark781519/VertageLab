@@ -1,0 +1,36 @@
+.form_box {
+  width: 60%;
+  height: 300px;
+  margin: 20px auto;
+  background: rgb(135, 175, 211);
+  box-shadow: 1px 2px 3px 0px rgba(0, 0, 0, 0.1);
+  border-radius: 6px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.gradient_form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#firstInput,
+#secondInput {
+  margin-bottom: 5px;
+  width: 150px;
+  height: 20px;
+}
+
+.form_button-active {
+  width: 100px;
+  height: 30px;
+  background: rgb(21, 130, 37);
+  color: #fff;
+  box-shadow: 1px 2px 3px 0px rgba(40, 155, 48, 0.1);
+  border-radius: 6px;
+}
